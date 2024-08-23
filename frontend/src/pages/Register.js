@@ -1,10 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../redux/slices/auth.slice";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const [userInfo , setUserInfo]=useState({
+    firstName :"",
+    lastName : "",
+    email : "",
+    password :""
+  })
+  
+
+  const isLoading = useSelector((state) => state.AuthReducer.isLoading);
+  const error = useSelector((state) => state.AuthReducer.errors);   
+  const isAuth = useSelector((state) => state.AuthReducer.isAuth);
+
+  const handleChange = (e) => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const navigate = useNavigate()
+
+  const redirect = () => {
+    if (isAuth === true) {
+      navigate('/profile')
+    }
+  }
+
+  useEffect(()=>{
+    redirect()
+  },[isAuth])
+  
+
   return (
     <div className="page page-center">
       <div className="container container-tight py-4">
+        
         <div className="text-center mb-4">
           <a href="." className="navbar-brand navbar-brand-autodark">
             <svg
@@ -28,29 +64,63 @@ const Register = () => {
             </svg>
           </a>
         </div>
-        <form
-          className="card card-md"
-          action="./"
-          method="get"
-          autoComplete="off"
-          noValidate
-        >
+        <div className="card card-md">
           <div className="card-body">
             <h2 className="card-title text-center mb-4">Create new account</h2>
+            {
+                error &&   <div class="alert alert-danger" role="alert">
+                <div class="d-flex">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="icon alert-icon"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                      <path d="M12 8v4"></path>
+                      <path d="M12 16h.01"></path>
+                    </svg>
+                  </div>
+                  <div>{error && error?.error ?  error?.error?.email?.msg || error?.error?.password?.msg : error }</div>
+                </div>
+              </div>
+              }
             <div className="mb-3">
-              <label className="form-label">Name</label>
+              <label className="form-label">first Name</label>
               <input
                 type="text"
+                name = "firstName"
+                className="form-control"
+                placeholder="Enter first name"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
                 className="form-control"
                 placeholder="Enter name"
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
               <label className="form-label">Email address</label>
               <input
                 type="email"
+                name="email"
                 className="form-control"
                 placeholder="Enter email"
+                onChange={handleChange}
               />
             </div>
             <div className="mb-3">
@@ -58,9 +128,11 @@ const Register = () => {
               <div className="input-group input-group-flat">
                 <input
                   type="password"
+                  name="password"
                   className="form-control"
                   placeholder="Password"
                   autoComplete="off"
+                  onChange={handleChange}
                 />
                 <span className="input-group-text">
                   <a
@@ -104,12 +176,16 @@ const Register = () => {
               </label>
             </div>
             <div className="form-footer">
-              <button type="submit" className="btn btn-primary w-100">
-                Create new account
+              <button  
+                className="btn btn-primary w-100"
+                onClick={() => dispatch(register(userInfo))}  
+                disabled = {isLoading}
+              >
+                { isLoading ? "Loading..." : "Create new account"}
               </button>
             </div>
           </div>
-        </form>
+        </div>
         <div className="text-center text-secondary mt-3">
           Already have account?{" "}
           <Link to="/login" tabIndex={-1}>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../redux/slices/auth.slice";
 
 const Login = () => {
@@ -8,6 +8,21 @@ const Login = () => {
 
   const isLoading = useSelector((state) => state.AuthReducer.isLoading);
   const error = useSelector((state) => state.AuthReducer.errors);   
+  const isAuth = useSelector((state) => state.AuthReducer.isAuth);
+  
+   
+  const navigate = useNavigate()
+
+  const redirect = () => {
+    if (isAuth === true) {
+      navigate('/profile')
+    }
+  }
+
+  useEffect(()=>{
+    redirect()
+  },[isAuth])
+
   const [credential, setCredential] = useState({
     email: "",
     password: "",
