@@ -8,6 +8,7 @@ app.use(cors())
 const port = process.env.PORT || 8000
 
 app.use('/user',require('./routes/user.routes'))
+app.use('/post',require('./routes/post.routes'))
 
 connectToMongo()
 app.listen(port,(err)=>{
