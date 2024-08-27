@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import PrivateRoutes from "./Routes/PrivateRoutes";
+import Feed from "./pages/Feed";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/feed" element={<Feed />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

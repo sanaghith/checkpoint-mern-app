@@ -13,12 +13,11 @@ const postCtrl = {
             const newPost = new Post ({
                 title , 
                 description,
-                owner : userId
+                owner : userId,
             })
             
             if(image){
                 const savedImage = await cloudinary.uploader.upload(image,{
-                    timestamp : 6000,
                     upload_preset : "mern_App_morning"
                 })
 
@@ -34,10 +33,10 @@ const postCtrl = {
 
             }
             
-            const post = await newPost.save()
+            await newPost.save()
 
 
-            return res.status(200).json(post)
+            return res.status(200).json("post added successfully")
             
         } catch (error) {
             console.log('err', error)   

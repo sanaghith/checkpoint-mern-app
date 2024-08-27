@@ -26,6 +26,16 @@ const NavBar = () => {
         <div className="navbar-nav flex-row order-md-last">
           <div className="nav-item d-none d-md-flex me-3">
             <div className="btn-list">
+
+            <div className="btn" target="_blank" rel="noreferrer">
+                {isAuth && 
+                  <Link to="/feed" className="text-decoration-none text-dark">
+                    {" "}
+                    Feed{" "}
+                  </Link>
+                }
+              </div>
+
               <div className="btn" target="_blank" rel="noreferrer">
                 {isAuth ? (
                   <h5> {user?.firstName} </h5>

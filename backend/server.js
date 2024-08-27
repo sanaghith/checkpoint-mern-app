@@ -3,7 +3,7 @@ const app = express()
 require('dotenv').config()
 const cors = require ('cors')
 const connectToMongo = require('./helpers/db.connect')
-app.use(express.json())
+app.use(express.json({limit : '50 mb'}))
 app.use(cors())
 const port = process.env.PORT || 8000
 
