@@ -29,6 +29,15 @@ const NavBar = () => {
 
             <div className="btn" target="_blank" rel="noreferrer">
                 {isAuth && 
+                  <Link to="/profile" className="text-decoration-none text-dark">
+                    {" "}
+                    Profile{" "}
+                  </Link>
+                }
+              </div>
+
+            <div className="btn" target="_blank" rel="noreferrer">
+                {isAuth && 
                   <Link to="/feed" className="text-decoration-none text-dark">
                     {" "}
                     Feed{" "}

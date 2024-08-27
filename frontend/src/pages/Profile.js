@@ -14,7 +14,7 @@ const Profile = () => {
 
 
   return (
-    <div  className='text-center container-md' >
+    <div  className='container-md' >
       <h1> Welcome to my profile </h1>
       <FormAddPost/>
       

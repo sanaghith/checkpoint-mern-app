@@ -8,6 +8,7 @@ const checkOwner = require('../middleware/owner.checker')
 router.post('/add-post',isAuthenticated,postCtrl.addPost)
 router.put('/update-post/:id' , isAuthenticated , checkOwner, postCtrl.updatePost)
 router.delete('/delete-post/:id', isAuthenticated , checkOwner , postCtrl.deletePost )
+router.get('/get-all-posts' , isAuthenticated , postCtrl.getAllPost )
 
 
 

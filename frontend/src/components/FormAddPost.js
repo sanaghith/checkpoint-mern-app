@@ -87,13 +87,13 @@ const FormAddPost = () => {
       </div>
       <div className="card-footer">
         <div className="row">
-          <div
+          <button
             className="btn btn-primary col-2"
             disabled={isLoading}
             onClick={addNewPost}
           >
             {isLoading ? "loading" : "Save"}
-          </div>
+          </button>
         </div>
       </div>
     </div>

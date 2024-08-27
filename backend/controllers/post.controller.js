@@ -87,6 +87,14 @@ const postCtrl = {
             console.log('err', error)   
             return res.status(500).json(error)
         }
+    },
+
+    getAllPost : async (req,res) => {
+        const posts =  await Post.find().populate({
+            path : "owner",
+            select : "firstName lastName"
+        }).sort({createdAt : -1})
+        return res.status(200).json(posts)
     }
 }
 
